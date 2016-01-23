@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.bmi.app.domain.Permission" table="PERMISSIONS" lazy="false">
+		<id name="id" type="java.lang.String">
+			<column name="ID" />
+			<generator class="uuid" />
+		</id>
+		<property name="name" type="java.lang.String" not-null="true">
+			<column name="NAME" />
+		</property>
+		<property name="title" type="java.lang.String" not-null="true">
+			<column name="TITLE" />
+		</property>
+		<property name="description" type="java.lang.String">
+			<column name="DESCRIPTION" />
+		</property>
+		<property name="httpPath" type="java.lang.String">
+			<column name="HTTP_PATH" default="'#'"/>
+		</property>
+		<property name="httpMethod" type="java.lang.String">
+			<column name="HTTP_METHOD" />
+		</property>
+		<property name="iconFile" type="java.lang.String">
+			<column name="ICON_FILE" />
+		</property>
+		<property name="menuOrder" type="int">
+			<column name="MENU_ORDER" default="0" />
+		</property>
+		<property name="asMenu" type="yes_no">
+			<column name="AS_MENU" default="'n'" />
+		</property>
+
+		<many-to-one name="parent" class="com.bmi.app.domain.Permission" cascade="save-update,delete">
+			<column name="PARENT" index="FK_PARENT_PERMISSIONS" />
+		</many-to-one>
+
+		<!-- Auditable Entitiy -->
+		<property name="deleted" type="boolean">
+			<column name="DELETED" default="0" />
+		</property>
+		<property name="createDate" type="java.util.Date">
+			<column name="CREATE_DATE" />
+		</property>
+		<property name="createBy" type="java.lang.String">
+			<column name="CREATE_BY" />
+		</property>
+		<property name="lastUpdateDate" type="java.util.Date">
+			<column name="LAST_UPDATE_DATE" />
+		</property>
+		<property name="lastUpdateBy" type="java.lang.String">
+			<column name="LAST_UPDATE_BY" />
+		</property>
+	</class>
+</hibernate-mapping>

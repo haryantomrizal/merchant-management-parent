@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="sessionFactory">
+		<property name="hibernate.connection.driver_resource">oracle.jdbc.OracleDriver</property>
+		<property name="hibernate.connection.password">mdwdev</property>
+		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:harydb</property>
+		<property name="hibernate.connection.username">mdwdev</property>
+		<property name="hibernate.default_schema">mdwdev</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+
+		<mapping resource="hibernate/hbm/app/User.hbm.xml" />
+		<mapping resource="hibernate/hbm/app/Role.hbm.xml" />
+		<mapping resource="hibernate/hbm/Merchant.hbm.xml" />
+		<mapping resource="hibernate/hbm/MerchantProduct.hbm.xml" />
+		<mapping resource="hibernate/hbm/Product.hbm.xml" />
+		<mapping resource="hibernate/hbm/Terminal.hbm.xml" />
+		<mapping resource="hibernate/hbm/Transaction.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.bmi.app.domain.User" table="USERS" lazy="false">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" />
+			<generator class="increment" />
+		</id>
+		<property name="userName" type="java.lang.String" not-null="true">
+			<column name="USER_NAME" unique="true" unique-key="UK_USER_NAME" />
+		</property>
+		<property name="firstName" type="java.lang.String">
+			<column name="FIRST_NAME" />
+		</property>
+		<property name="lastName" type="java.lang.String">
+			<column name="LAST_NAME" />
+		</property>
+		<property name="password" type="java.lang.String" not-null="true">
+			<column name="PASSWORD" />
+		</property>
+		<property name="email" type="java.lang.String">
+			<column name="EMAIL" unique="true" unique-key="UK_USER_EMAIL" />
+		</property>
+		<property name="phone" type="java.lang.String">
+			<column name="PHONE" />
+		</property>
+		<property name="profilePicture" type="java.lang.String">
+			<column name="PROFILE_PICTURE" />
+		</property>
+		<property name="lastLogin" type="java.util.Date">
+			<column name="LAST_LOGIN" />
+		</property>
+		<property name="lastLoginAddress" type="java.lang.String">
+			<column name="LAST_LOGIN_ADDRESS" />
+		</property>
+		<property name="picture" type="binary">
+			<column name="PICTURE" />
+		</property>
+		<bag name="roles" table="USER_ROLES" fetch="select" cascade="save-update,delete">
+			<key column="USER_ID" foreign-key="FK_USER_ROLES" />
+			<many-to-many class="com.bmi.app.domain.Role">
+				<column name="ROLE_NAME" />
+			</many-to-many>
+		</bag>
+
+		<property name="enabled" type="boolean">
+			<column name="ENABLED" default="1" />
+		</property>
+		<property name="accountNonExpired" type="boolean">
+			<column name="ACCOUNT_NON_EXPIRED" default="1" />
+		</property>
+		<property name="accountExpiryDate" type="java.util.Date">
+			<column name="ACCOUNT_EXPIRY_DATE" />
+		</property>
+		<property name="credentialsNonExpired" type="boolean">
+			<column name="CREDENTIALS_NON_EXPIRED" default="1" />
+		</property>
+		<property name="credentialsExpiryDate" type="java.util.Date">
+			<column name="CREDENTIALS_EXPIRY_DATE" />
+		</property>
+		<property name="accountNonLocked" type="boolean">
+			<column name="ACCOUNT_NON_LOCKED" default="1" />
+		</property>
+
+		<!-- Auditable Entitiy -->
+		<property name="deleted" type="boolean">
+			<column name="DELETED" default="0" />
+		</property>
+		<property name="createDate" type="java.util.Date">
+			<column name="CREATE_DATE" />
+		</property>
+		<property name="createBy" type="java.lang.String">
+			<column name="CREATE_BY" />
+		</property>
+		<property name="lastUpdateDate" type="java.util.Date">
+			<column name="LAST_UPDATE_DATE" />
+		</property>
+		<property name="lastUpdateBy" type="java.lang.String">
+			<column name="LAST_UPDATE_BY" />
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.bmi.app.domain.Role" table="ROLES" lazy="false">
+		<id name="name" type="java.lang.String">
+			<column name="NAME" />
+		</id>
+		<property name="description" type="java.lang.String" not-null="false">
+			<column name="DESCRIPTION" />
+		</property>
+		<bag name="users" table="USER_ROLES">
+			<key column="ROLE_NAME" />
+			<many-to-many column="USER_ID" class="com.bmi.app.domain.User" />
+		</bag>
+		<bag name="permissions" table="ROLE_PERMISSIONS" fetch="select">
+			<key column="ROLE_NAME" />
+			<many-to-many column="PERMISSION_ID" class="com.bmi.app.domain.Permission" />
+		</bag>
+
+		<!-- Auditable Entitiy -->
+		<property name="deleted" type="boolean">
+			<column name="DELETED" default="0" />
+		</property>
+		<property name="createDate" type="java.util.Date">
+			<column name="CREATE_DATE" />
+		</property>
+		<property name="createBy" type="java.lang.String">
+			<column name="CREATE_BY" />
+		</property>
+		<property name="lastUpdateDate" type="java.util.Date">
+			<column name="LAST_UPDATE_DATE" />
+		</property>
+		<property name="lastUpdateBy" type="java.lang.String">
+			<column name="LAST_UPDATE_BY" />
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>Merchant Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
+<link rel="stylesheet" type="text/css" media="all"
+	href="../../../js/jquery-ui/1.11.0/themes/bmi/jquery-ui.min.css"
+	th:href="@{/js/jquery-ui/1.11.0/themes/bmi/jquery-ui.min.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="../../../js/jquery-ui/1.11.0/themes/bmi/jquery-ui.structure.min.css"
+	th:href="@{/js/jquery-ui/1.11.0/themes/bmi/jquery-ui.structure.min.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="../../../js/jquery-ui/1.11.0/themes/bmi/jquery-ui.theme.min.css"
+	th:href="@{/js/jquery-ui/1.11.0/themes/bmi/jquery-ui.theme.min.css}" />
+
+<script type="text/javascript" src="../../../js/jquery-2.1.1.min.js"
+	th:src="@{/js/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript" src="../../../js/jquery-ui/1.11.0/jquery-ui.min.js"
+	th:src="@{/js/jquery-ui/1.11.0/jquery-ui.min.js}"></script>
+
+</head>
+<body>
+	<!--/* Standard layout can be mixed with Layout Dialect */-->
+	<header th:replace="fragments/header :: header">Default Header</header>
+	<nav id="language-bar">
+		<ul>
+			<li>????</li>
+			<li>Language</li>
+		</ul>
+	</nav>
+	<section class="container" layout:fragment="container">
+		<!-- ============================================================================ -->
+		<!-- This content is only used for static prototyping purposes (natural templates)-->
+		<!-- and is therefore entirely optional, as this markup fragment will be included -->
+		<!-- from "fragments/header.html" at runtime.                                     -->
+		<!-- ============================================================================ -->
+		<h1>Static content for prototyping purposes only</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent scelerisque neque neque,
+			ac elementum quam dignissim interdum. Phasellus et placerat elit. Lorem ipsum dolor sit amet,
+			consectetur adipiscing elit. Praesent scelerisque neque neque, ac elementum quam dignissim
+			interdum. Phasellus et placerat elit.</p>
+	</section>
+	<footer th:replace="fragments/footer :: footer">Default Footer</footer>
+</body>
+</html>

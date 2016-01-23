@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<section class="logout" th:fragment="logout">
+		<form id="logout" method="post" action="#" th:action="@{/j_spring_security_logout}">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		</form>
+		<script>
+			function logout() {
+				document.getElementById("logout").submit();
+			}
+		</script>
+		<!-- ${pageContext.request.userPrincipal.name != null} -->
+	</section>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<!--/*  Each token will be replaced by their respective titles in the resulting page. */-->
+<!-- <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">Merchant Management</title> -->
+<title>Merchant Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
+<link rel="stylesheet" type="text/css" media="all"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.min.css"
+	th:href="@{/js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.min.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.structure.min.css"
+	th:href="@{/js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.structure.min.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.theme.min.css"
+	th:href="@{/js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.theme.min.css}" />
+
+<script type="text/javascript" src="../../../js/jquery-2.1.1.min.js"
+	th:src="@{/js/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript" src="../../../js/jquery-ui/1.11.0/jquery-ui.min.js"
+	th:src="@{/js/jquery-ui/1.11.0/jquery-ui.min.js}"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../js/dlmenu/css/component.css"
+	th:href="@{/js/dlmenu/css/component.css}" />
+<script type="text/javascript" src="../../../js/modernizr-2.8.3.js"
+	th:src="@{/js/modernizr-2.8.3.js}"></script>
+<!-- <script type="text/javascript" src="../../../js/dlmenu/js/modernizr.custom.js"
+	th:src="@{js/dlmenu/js/modernizr.custom.js}"></script> -->
+<script type="text/javascript" src="../../../js/dlmenu/jquery.dlmenu.js"
+	th:src="@{/js/dlmenu/jquery.dlmenu.js}"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../css/main.css"
+	th:href="@{/css/main.css}" />
+
+<script type="text/javascript" src="../../../js/main.js" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" src="../../../js/common.js" th:src="@{/js/common.js}"></script>
+
+</head>
+<body th:inline="text">
+	<div id="content-container">
+		<!-- Standard layout can be mixed with Layout Dialect -->
+		<!-- ============================================================================ -->
+		<!-- This content is only used for static prototyping purposes (natural templates)-->
+		<!-- and is therefore entirely optional, as this markup fragment will be included -->
+		<!-- from "fragments/header.html" at runtime.                                     -->
+		<!-- ============================================================================ -->
+		<header th:replace="fragments/header :: header">
+			<h1>Default Header</h1>
+		</header>
+		<section class="logout" th:replace="fragments/logout :: logout"></section>
+		<div id="menu-bar" class="demo-3">
+			<div id="dl-menu" class="dl-menuwrapper" th:replace="fragments/menu :: dl-menu">
+				<button class="dl-trigger">Open Menu</button>
+				<ul class="dl-menu">
+					<li><a href="#" th:href="@{/home}" th:text="#{title.home}">Home</a></li>
+					<li><a href="#" th:text="#{sysadmin}">System Administration</a>
+						<ul class="dl-submenu">
+							<li><a href="../app/user_list.html" th:href="@{/user/list}" th:text="#{user}">User</a></li>
+							<li><a href="../app/role_list.html" th:href="@{/role/list}" th:text="#{role}">Role</a></li>
+							<li><a href="../app/permission_list.html" th:href="@{/permission/list}" th:text="#{permission}">Permission</a></li>
+						</ul></li>
+					<li><a href="#" th:text="#{admin}">Administration</a>
+						<ul class="dl-submenu">
+							<li><a href="../merchant/product_list.html" th:href="@{/product/list}" th:text="#{product}">Product</a></li>
+							<li><a href="../merchant/merchant_list.html" th:href="@{/merchant/list}" th:text="#{merchant}">Merchant</a></li>
+							<li><a href="../merchant/merchantProduct_list.html" th:href="@{/merchantProduct/list}" th:text="#{merchantProduct}">Merchant Product</a></li>
+							<li><a href="../merchant/terminal_list.html" th:href="@{/terminal/list}" th:text="#{terminal}">Merchant Terminal</a></li>
+						</ul></li>
+					<li><a href="#" th:text="#{acc}">Account</a>
+						<ul class="dl-submenu">
+							<li><a href="#" th:href="@{/account/info}" th:text="#{acc.info}">Account Info</a></li>
+							<li><a href="#" th:href="@{/account/changePassword}" th:text="#{acc.password.change}">Change Password</a></li>
+						</ul></li>
+					<li><a href="#" th:text="#{trx}">Transaction</a>
+						<ul class="dl-submenu">
+							<li><a href="../merchant/transaction_hist.html" th:href="@{/transaction/history}" th:text="#{trx.history}">History</a></li>
+							<li><a href="#" th:text="#{recon}">Recon</a></li>
+						</ul></li>
+					<li><a href="#" th:text="#{report}">Report</a></li>
+					<li><a href="#" onclick="logout()" th:text="#{logout}">Logout</a></li>
+				</ul>
+			</div>
+			<div id="language-bar">
+				<ul>
+					<li><a href="?lang=in_ID"><img src="../../../images/flags/24/ID.png"
+							th:src="@{/images/flags/24/ID.png}" title="IN" th:alt-title="IN" /></a></li>
+					<li><a href="?lang=en"><img src="../../../images/flags/24/GB.png" title="EN"
+							th:src="@{/images/flags/24/GB.png}" th:alt-title="EN" /></a></li>
+				</ul>
+			</div>
+			<div id="user-bar">
+				<span th:text="#{welcome}">Welcome</span> <a href="#" th:text="${session.login.userName}">username</a>
+				| <a href="javascript:logout()" th:text="#{logout}">Logout</a>
+			</div>
+		</div>
+		<section id="content" layout:fragment="content">
+			<h1>Static content for prototyping purposes only</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent scelerisque neque neque,
+				ac elementum quam dignissim interdum. Phasellus et placerat elit. Lorem ipsum dolor sit amet,
+				consectetur adipiscing elit. Praesent scelerisque neque neque, ac elementum quam dignissim
+				interdum. Phasellus et placerat elit.</p>
+			<p>
+				<a>This is Link</a>
+			</p>
+		</section>
+		<footer th:replace="fragments/footer :: footer">Default Footer</footer>
+	</div>
+</body>
+</html>

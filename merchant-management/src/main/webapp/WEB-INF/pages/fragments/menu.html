@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div id="dl-menu" class="dl-menuwrapper" th:fragment="dl-menu" th:with="menus=${session.menuList}">
+		<button class="dl-trigger">Open Menu</button>
+		<ul class="dl-menu">
+			<li><a href="#" th:href="@{/home}" th:text="#{home}">Home</a></li>
+			<li>
+				<a href="#" th:text="#{acc}">Account</a>
+				<ul class="dl-submenu">
+					<li><a href="#" th:href="@{/acc/info}" th:text="#{acc.info}">Account Info</a></li>
+					<li><a href="#" th:href="@{/acc/changePassword}" th:text="#{acc.password.change}">Change Password</a></li>
+				</ul>
+			</li>
+			<li th:unless="${#lists.isEmpty(menus)}" th:each="menu : ${menus}" th:fragment="menuItem (menus)">
+				<a th:text="${menu.title} != null or ${!#strings.isEmpty(menu.title)} ? #{${menu.title}} : ${menu.name}"
+					th:href="${#strings.startsWith(menu.httpPath,'/')} ? @{${menu.httpPath}} : ${menu.httpPath}"></a>
+				<ul th:unless="${#lists.isEmpty(menu.childMenuList)}" class="dl-submenu">
+					<li th:unless="${#lists.isEmpty(menu.childMenuList)}"
+						th:replace="fragments/menu :: menuItem (menus=${menu.childMenuList})" />
+				</ul>
+			</li>
+			<li><a href="#" onclick="logout()" th:text="#{logout}">Logout</a></li>
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+input,a {
+	margin: 0.4em 0 1.2em 0;
+}
+
+#content {
+	clear: left;
+	float: left;
+	width: 65%;
+	display: inline;
+}
+
+#aside {
+	float: right;
+	width: 30%;
+	display: inline;
+}
+
+#login-form input {
+	display: block;
+}
+
+#submit {
+	clear: both;
+}
+
+#submit input {
+	float: left;
+	display: inline;
+/*  	margin: auto auto; */
+}
+
+#submit a {
+	float: right;
+	display: inline;
+}

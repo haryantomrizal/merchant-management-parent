@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title th:text="#{title}">Merchant Management</title>
+
+<!-- BE REMOVED -->
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.structure.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.theme.min.css" />
+
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-ui/1.11.0/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../css/main.css" th:remove="tag" />
+<script type="text/javascript" src="../../../js/main.js" th:remove="tag"></script>
+<!-- BE REMOVED -->
+
+<!-- <link rel="stylesheet" type="text/css" href="../../../js/datatables/css/jquery.dataTables.css"
+	th:href="@{/js/datatables/css/jquery.dataTables.css}"></link> -->
+
+<link rel="stylesheet" type="text/css" href="../../../js/datatables/css/dataTables.jqueryui.css"
+	th:href="@{/js/datatables/css/dataTables.jqueryui.css}"></link>
+<script type="text/javascript" src="../../../js/datatables/jquery.dataTables.js"
+	th:src="@{/js/datatables/jquery.dataTables.js}"></script>
+<script type="text/javascript" src="../../../js/datatables/dataTables.jqueryui.js"
+	th:src="@{/js/datatables/dataTables.jqueryui.js}"></script>
+
+<script type="text/javascript">
+	$('#content').ready(function() {
+		$('#content table').dataTable({
+			"scrollX" : true
+		});
+	});
+</script>
+
+</head>
+<body>
+	<div id="content" layout:fragment="content">
+		<h2 th:text="#{permission.list}">Permission List</h2>
+		<table id="tbPermission" class="display datatable" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<td th:text="#{permission.id}">Permission Id</td>
+					<td th:text="#{permission.name}">Permission Name</td>
+					<td th:text="#{permission.title}">Permission Title</td>
+					<td th:text="#{permission.httpPath}">HTTP Path</td>
+					<td th:text="#{permission.httpMethod}">HTTP Method</td>
+					<td th:text="#{permission.iconFile}">Icon File</td>
+					<td th:text="#{permission.asMenu}">As Menu</td>
+					<td th:text="#{permission.menuOrder}">Menu Order</td>
+					<td th:text="#{permission.parent}">Parent Permission</td>
+					<td th:text="#{description}">Description</td>
+					<td th:text="#{action}">Action</td>
+				</tr>
+			</thead>
+			<tbody th:remove="all-but-first">
+				<tr th:each="permission : ${permissions}">
+					<td th:text="${permission.id}">Permission Id 1</td>
+					<td th:text="${permission.name}">Permission Name 1</td>
+					<td th:text="${permission.title}">Permission Title 1</td>
+					<td th:text="${permission.httpPath}">HTTP Path 1</td>
+					<td th:text="${permission.httpMethod}">HTTP Method 1</td>
+					<td th:text="${permission.iconFile}">Icon File 1</td>
+					<td th:text="${permission.asMenu}">As Menu 1</td>
+					<td th:text="${permission.menuOrder}">Menu Order 1</td>
+					<td th:text="${permission.parent} != null ? ${permission.parent.id}">Parent Permission 1</td>
+					<td th:text="${permission.description}">Description 1</td>
+					<td><a class="ui-button ui-icon ui-icon-pencil" href="permission_edit.html"
+						th:href="@{'/permission/edit?id='+${permission.id}}" title="edit" th:title="#{edit}"></a> <a
+						class="ui-button ui-icon ui-icon-trash" th:href="@{'/permission/delete?id='+${permission.id}}"
+						title="delete" th:title="#{delete}"></a></td>
+				</tr>
+				<!-- Prototype -->
+				<tr>
+					<td>Permission Id 2</td>
+					<td>Permission Name 2</td>
+					<td>Permission Title 2</td>
+					<td>HTTP Path 2</td>
+					<td>HTTP Method 2</td>
+					<td>Icon File 2</td>
+					<td>As Menu 2</td>
+					<td>Menu Order 2</td>
+					<td>Parent Permission 2</td>
+					<td>Description 2</td>
+					<td><a class="ui-button ui-icon ui-icon-pencil" title="edit" th:title="${edit}"></a> <a
+						class="ui-button ui-icon ui-icon-trash" title="delete" th:title="${delete}"></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<br />
+		<input type="button" class="button" onclick="doCreate();" value="Create Permission"
+			th:value="#{permission.create}" />
+	</div>
+</body>
+</html>

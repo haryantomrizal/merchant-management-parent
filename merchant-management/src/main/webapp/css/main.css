@@ -1,0 +1,102 @@
+html,body,input {
+	font-family: Tahoma, LucidaSans, Helvetica, Arial, sans-serif;
+	font-size: 12px;
+}
+
+body {
+	background: rgba(147, 202, 200, 0.85);
+}
+
+header,section,footer,#language-bar,#user-bar {
+	padding: 0.6em;
+}
+
+#content-container {
+	width: 80%;
+	margin: auto;
+	background: rgba(255, 252, 245, 1);
+}
+
+header,footer {
+	background: #009d98;
+	color: whitesmoke;
+}
+
+footer {
+	clear: both;
+}
+
+#menu-bar {
+	background: #08cbc4;
+	min-height: 3em;
+	color: #fff;
+}
+
+#dl-menu {
+	position: absolute;
+}
+
+#user-bar {
+	position: relative;
+	margin: 0.3em 0 0 4em;
+	display: inline;
+	float: right;
+}
+
+#language-bar {
+	/* position: relative; */
+	display: inline;
+	float: right;
+}
+
+#content {
+	min-height: 180px;
+	background: #fffff5;
+	color: black;
+	padding: 1em 2em 2em;
+}
+
+.logout {
+	display: none;
+}
+
+a {
+	text-decoration: none;
+	color: darkcyan;
+}
+
+a:hover {
+	cursor: pointer;
+	color: firebrick;
+}
+
+#language-bar ul {
+	margin: 0;
+	padding: 0;
+}
+
+#language-bar ul li {
+	display: inline;
+}
+
+/* #error-detail ul li{
+	list-style: none;
+} */
+
+input {
+	padding: 0.2em 0.4em;
+	outline: #119999;
+}
+
+input[type=button] {
+	outline: 0;
+}
+
+.dataTables_wrapper {
+	position: inherit;
+}
+
+.error {
+	font-style: italic;
+	color: red;
+}

@@ -1,0 +1,52 @@
+body {
+	font-family: LucidaSans, Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+
+#container,header,section,footer,#language-bar {
+	/* border: 1px solid grey; */
+	padding: 0.6em;
+}
+
+header,footer {
+	background: #009d98;
+	color: whitesmoke;
+}
+
+#menu-bar {
+	background: #00b4ae;
+	/* position: absolute; */
+	/* right: 0px; */
+}
+
+#container {
+	background: whitesmoke;
+}
+
+.logout {
+	display: none;
+}
+
+#language-bar ul {
+	margin: 0;
+	padding: 0;
+}
+
+#language-bar ul li {
+	margin: 0.4em;
+	display: inline;
+}
+
+#content-container {
+	/* position: absolute;
+	left: 40px; */
+	
+}
+
+footer {
+	clear: both;
+}
+
+input,a {
+	padding: 0.45em 0.6em;
+}

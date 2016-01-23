@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title th:text="#{title}">Merchant Management</title>
+
+<!-- BE REMOVED -->
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.structure.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.theme.min.css" />
+
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-ui/1.11.0/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../css/main.css" th:remove="tag" />
+<script type="text/javascript" src="../../../js/main.js" th:remove="tag"></script>
+<!-- BE REMOVED -->
+
+<!-- <link rel="stylesheet" type="text/css" href="../../../js/datatables/css/jquery.dataTables.css"
+	th:href="@{/js/datatables/css/jquery.dataTables.css}"></link> -->
+
+<link rel="stylesheet" type="text/css" href="../../../js/datatables/css/dataTables.jqueryui.css"
+	th:href="@{/js/datatables/css/dataTables.jqueryui.css}"></link>
+<script type="text/javascript" src="../../../js/datatables/jquery.dataTables.js"
+	th:src="@{/js/datatables/jquery.dataTables.js}"></script>
+<script type="text/javascript" src="../../../js/datatables/dataTables.jqueryui.js"
+	th:src="@{/js/datatables/dataTables.jqueryui.js}"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../css/cool-form.css"
+	th:href="@{/css/cool-form.css}" />
+
+<script type="text/javascript">
+	$('#content').ready(function() {
+	});
+</script>
+
+</head>
+<body>
+	<div id="content" layout:fragment="content">
+		<form th:object="${permission}" name="editForm" class="cool-form" action="permission_edit.html"
+			th:action="@{'?id='+*{id}}" method="post">
+			<ul>
+				<li>
+					<h3 th:text="#{permission.edit}">Edit Permission</h3>
+					<span class="required_notification" th:text="#{required.info}">* Denotes Required Field</span>
+				</li>
+				<li>
+					<label for="id" th:text="#{permission.id}" class="required">Permission Id</label>
+					<input name="id" type="text" th:value="*{id}" required="required" disabled="disabled" />
+					<span th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="error"></span>
+				</li>
+				<li>
+					<label for="name" th:text="#{permission.name}" class="required">Permission Name</label>
+					<input name="name" type="text" th:value="*{name}" required="required" autofocus="autofocus" />
+				</li>
+				<li>
+					<label for="title" th:text="#{permission.title}" class="required">Permission Title</label>
+					<input title="title" type="text" th:value="*{title}" required="required" />
+				</li>
+				<li>
+					<label for="httpPath" th:text="#{permission.httpPath}">Http Path</label>
+					<input name="httpPath" type="text" th:value="*{httpPath}" />
+				</li>
+				<li>
+					<label for="httpMethod" th:text="#{permission.httpMethod}">Http Method</label>
+					<select name="httpMethod">
+						<option value=""></option>
+						<option value="GET">GET</option>
+						<option value="POST">POST</option>
+						<option value="PUT">PUT</option>
+						<option value="DELETE">DELETE</option>
+					</select>
+				</li>
+				<li>
+					<label for="iconFile" th:text="#{permission.iconFile}">Icon File</label>
+					<input name="iconFile" type="text" th:value="*{iconFile}" />
+				</li>
+				<li>
+					<label for="asMenu" th:text="#{permission.asMenu}">As Menu</label>
+					<select name="asMenu">
+						<option value="true">Yes</option>
+						<option value="false">No</option>
+					</select>
+				</li>
+				<li>
+					<label for="menuOrder" th:text="#{permission.menuOrder}">Menu Order</label>
+					<input name="menuOrder" type="text" th:value="*{menuOrder}" />
+					<span th:if="${#fields.hasErrors('menuOrder')}" th:errors="*{menuOrder}" class="error"></span>
+				</li>
+				<li>
+					<label for="parent" th:text="#{permission.parent}">Parent Menu</label>
+					<select name="parent">
+						<option value=""></option>
+						<option th:each="p : ${allPermissions}" th:value="${p.id}" th:text="${p.name}">Permission
+							Name</option>
+					</select>
+					<span th:if="${#fields.hasErrors('parent')}" th:errors="*{parent}" class="error"></span>
+				</li>
+				<li>
+					<label for="description" th:text="#{description}">Description</label>
+					<textarea name="description" th:value="*{description}"></textarea>
+				</li>
+				<li>
+					<input type="submit" class="button" value="Save" th:value="#{save}" />
+					<!-- <input type="button" class="button" onclick="doClear();" text="Clear" th:value="#{clear}" /> -->
+					<input type="button" class="button" onclick="doCancel();" value="Cancel" th:value="#{cancel}" />
+				</li>
+			</ul>
+		</form>
+	</div>
+</body>
+</html>

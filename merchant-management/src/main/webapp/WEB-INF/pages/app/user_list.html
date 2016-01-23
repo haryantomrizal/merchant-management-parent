@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title th:text="#{title}">Merchant Management</title>
+
+<!-- BE REMOVED -->
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.structure.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.theme.min.css" />
+
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-ui/1.11.0/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../css/main.css" th:remove="tag" />
+<script type="text/javascript" src="../../../js/main.js" th:remove="tag"></script>
+<!-- BE REMOVED -->
+
+<!-- <link rel="stylesheet" type="text/css" href="../../../js/datatables/css/jquery.dataTables.css"
+	th:href="@{/js/datatables/css/jquery.dataTables.css}"></link> -->
+
+<link rel="stylesheet" type="text/css" href="../../../js/datatables/css/dataTables.jqueryui.css"
+	th:href="@{/js/datatables/css/dataTables.jqueryui.css}"></link>
+<script type="text/javascript" src="../../../js/datatables/jquery.dataTables.js"
+	th:src="@{/js/datatables/jquery.dataTables.js}"></script>
+<script type="text/javascript" src="../../../js/datatables/dataTables.jqueryui.js"
+	th:src="@{/js/datatables/dataTables.jqueryui.js}"></script>
+
+<script type="text/javascript">
+	$('#content').ready(function() {
+		$('#content table').dataTable({
+			"scrollX" : true
+		});
+		//		$('.ui-button').hover(function() {
+		//			$(this).addClass('ui-state-hover');
+		//		}, function() {
+		//			$(this).removeClass('ui-state-hover');
+		//		});
+		//		$('.ui-button').focusin(function() {
+		//			$(this).addClass('ui-state-focus');
+		//		});
+		//		$('.ui-button').focusout(function() {
+		//			$(this).removeClass('ui-state-focus');
+		//		});
+		/* $('.dataTables_wrapper').css('position', ''); */
+		/*<![CDATA[*/
+		//		    var applicationName = /*[[${T(doan.thymeleaf.demo.util.Constants).APPLICATION_NAME}]]*/ "Test";
+		//		    function displayApplicationName() {
+		//		        document.getElementById('displaySpan').innerHTML='Application name : '+applicationName;
+		//		    }
+		/*]]>*/
+	});
+</script>
+
+</head>
+<body>
+	<div id="content" layout:fragment="content">
+		<h2 th:text="#{user.list}">User List</h2>
+		<table id="tbUser" class="display datatable" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<td th:text="#{user.userName}">User Name</td>
+					<td th:text="#{user.firstName}">First Name</td>
+					<td th:text="#{user.lastName}">Last Name</td>
+					<td th:text="#{phone}">Phone</td>
+					<td th:text="#{email}">Email</td>
+					<td th:text="#{enabled}">Enabled</td>
+					<td th:text="#{action}">Action</td>
+				</tr>
+			</thead>
+			<tbody th:remove="all-but-first">
+				<tr th:each="user : ${allUsers}">
+					<td th:text="${user.userName}">User Name 1</td>
+					<td th:text="${user.firstName}">First Name 1</td>
+					<td th:text="${user.lastName}">Last Name 1</td>
+					<td th:text="${user.phone}">Phone 1</td>
+					<td th:text="${user.email}">Email 1</td>
+					<td th:text="${user.enabled}">true</td>
+					<td><a class="ui-button ui-icon ui-icon-pencil" href="user_edit.html"
+						th:href="@{'/user/edit?id='+${user.id}}" title="edit" th:title="#{edit}"></a> <a
+						class="ui-button ui-icon ui-icon-trash" th:href="@{'/user/delete?id='+${user.id}}"
+						title="delete" th:title="#{delete}"></a> <a class="ui-button ui-icon ui-icon-key"
+						th:href="@{'/user/resetPassword?id='+${user.id}}" title="reset password"
+						th:title="#{password.reset}"></a></td>
+				</tr>
+				<!-- Prototype -->
+				<tr>
+					<td>User Name 2</td>
+					<td>First Name 2</td>
+					<td>Last Name 2</td>
+					<td>Phone 2</td>
+					<td>Email 2</td>
+					<td>true</td>
+					<td><a class="ui-button ui-icon ui-icon-pencil" title="edit" th:title="${edit}"></a> <a
+						class="ui-button ui-icon ui-icon-trash" title="delete" th:title="${delete}"></a> <a
+						class="ui-button ui-icon ui-icon-key" title="reset password" th:title="${password.reset}"></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<br />
+		<input type="button" class="button" onclick="doCreate();" value="Create User"
+			th:value="#{user.create}" />
+	</div>
+</body>
+</html>

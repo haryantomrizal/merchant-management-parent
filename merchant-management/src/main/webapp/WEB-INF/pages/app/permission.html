@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+	<ul th:fragment="permissionsCheckbox (permissionList,checkedList)">
+		<li th:each="p : ${permissionList}">
+			<input type="checkbox" th:field="*{permissions}" th:value="${p.id}"
+				th:checked="${checkedList} != null and ${#lists.contains(checkedList, p)}" />
+			<span th:title="${p.description}" th:text="${p.name}">Permission Lv 1</span>&nbsp;&nbsp;
+			<ul th:unless="${#lists.isEmpty(p.childMenuList)}"
+				th:include="app/permission :: permissionsCheckbox (permissionList=${p.childMenuList},checkedList=${checkedList})">
+				<li>
+					<input type="checkbox" /> Permission Lv 1.1
+				</li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>

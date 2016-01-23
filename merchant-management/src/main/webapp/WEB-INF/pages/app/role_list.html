@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title th:text="#{title}">Merchant Management</title>
+
+<!-- BE REMOVED -->
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.structure.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.theme.min.css" />
+
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-ui/1.11.0/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../css/main.css" th:remove="tag" />
+<script type="text/javascript" src="../../../js/main.js" th:remove="tag"></script>
+<!-- BE REMOVED -->
+
+<!-- <link rel="stylesheet" type="text/css" href="../../../js/datatables/css/jquery.dataTables.css"
+	th:href="@{/js/datatables/css/jquery.dataTables.css}"></link> -->
+
+<link rel="stylesheet" type="text/css" href="../../../js/datatables/css/dataTables.jqueryui.css"
+	th:href="@{/js/datatables/css/dataTables.jqueryui.css}"></link>
+<script type="text/javascript" src="../../../js/datatables/jquery.dataTables.js"
+	th:src="@{/js/datatables/jquery.dataTables.js}"></script>
+<script type="text/javascript" src="../../../js/datatables/dataTables.jqueryui.js"
+	th:src="@{/js/datatables/dataTables.jqueryui.js}"></script>
+
+<script type="text/javascript">
+	$('#content').ready(function() {
+		$('#content table').dataTable({
+			"scrollX" : true
+		});
+		/* $('.dataTables_wrapper').css('position', ''); */
+	});
+</script>
+
+</head>
+<body>
+	<div id="content" layout:fragment="content">
+		<h2 th:text="#{role.list}">Role List</h2>
+		<table id="tbRole" class="display datatable" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<td th:text="#{role.name}">Role Name</td>
+					<td th:text="#{createBy}">Create By</td>
+					<td th:text="#{createDate}">Create Date</td>
+					<td th:text="#{lastUpdateBy}">Last Update By</td>
+					<td th:text="#{lastUpdateDate}">Last Update Date</td>
+					<td th:text="#{description}">Description</td>
+					<td th:text="#{action}">Action</td>
+				</tr>
+			</thead>
+			<tbody th:remove="all-but-first">
+				<tr th:each="role : ${roles}">
+					<td th:text="${role.name}">Role Name 1</td>
+					<td th:text="${role.createBy}">Create By 1</td>
+					<td th:text="${role.createDate}">Create Date 1</td>
+					<td th:text="${role.lastUpdateBy}">Last Update By 1</td>
+					<td th:text="${role.lastUpdateDate}">Last Update Date 1</td>
+					<td th:text="${role.description}">Description 1</td>
+					<td><a class="ui-button ui-icon ui-icon-pencil" href="role_edit.html"
+						th:href="@{'/role/edit?id='+${role.id}}" title="edit" th:title="#{edit}"></a> <a
+						class="ui-button ui-icon ui-icon-trash" th:href="@{'/role/delete?id='+${role.id}}"
+						title="delete" th:title="#{delete}"></a></td>
+				</tr>
+				<!-- Prototype -->
+				<tr>
+					<td>Role Name 2</td>
+					<td>Create By 2</td>
+					<td>Create Date 2</td>
+					<td>Last Update By 2</td>
+					<td>Last Update Date 2</td>
+					<td>Description 2</td>
+					<td><a class="ui-button ui-icon ui-icon-pencil" title="edit" th:title="${edit}"></a> <a
+						class="ui-button ui-icon ui-icon-trash" title="delete" th:title="${delete}"></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<br />
+		<input type="button" class="button" onclick="doCreate();" value="Create Role"
+			th:value="#{role.create}" />
+	</div>
+</body>
+</html>

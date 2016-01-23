@@ -1,0 +1,152 @@
+/* FORM VALIDATION CSS */
+.cool-form ul {
+	/* width: 750px; */
+	list-style-type: none;
+	list-style-position: outside;
+	margin: 0 0 0 20px;
+	padding: 0px;
+}
+
+.cool-form>ul>li>div>ul,
+.cool-form>ul {
+	margin: 0px;
+}
+
+.cool-form ul li {
+	margin: 3px 0;
+}
+
+.cool-form>ul>li {
+	margin: 0px;
+	padding: 12px;
+	border-bottom: 1px solid #eee;
+	/* position: relative; */
+}
+
+.cool-form>ul>li:first-child,.cool-form>ul>li:last-child {
+	border-bottom: 1px solid #777;
+}
+
+/* === Form Header === */
+.cool-form h3 {
+	margin: 0;
+	display: inline;
+}
+
+.required_notification {
+	color: #d45252;
+	margin: 5px 0 0 0;
+	display: inline;
+	float: right;
+}
+
+/* === Form Elements === */
+.cool-form label {
+	width: 150px;
+	/* margin-top: 3px; */
+	display: inline-block;
+	/* float: left; */
+	padding: 3px;
+}
+
+.cool-form input[type=text],
+.cool-form input[type=email],
+.cool-form input[type=number],
+.cool-form input[type=password],
+.cool-form textarea {
+	/* height:20px; */
+	width: 200px;
+	/* padding:5px 8px; */
+}
+
+.cool-form *:focus {
+	outline: none;
+}
+
+.cool-form input[type=text],
+.cool-form input[type=email],
+.cool-form input[type=number],
+.cool-form input[type=password],
+.cool-form textarea {
+	border: 1px solid #aaa;
+	/* box-shadow: 0px 0px 3px #ccc, 0 5px 10px #eee inset; */
+	box-shadow: 0px 0px 3px #ccc;
+	border-radius: 2px;
+}
+
+.cool-form input[type=text]:focus,
+.cool-form input[type=email]:focus,
+.cool-form input[type=number]:focus,
+.cool-form input[type=password]:focus,
+.cool-form textarea:focus {
+	background: #fff;
+	border: 1px solid #555;
+	box-shadow: 0 0 3px #aaa;
+}
+
+.cool-form input:required:valid,
+.cool-form select:required:valid,
+.cool-form textarea:required:valid {
+	background: #fff url(../images/valid.png) no-repeat 98% center;
+	box-shadow: 0 0 5px #5cd053;
+	border-color: #28921f;
+	padding-right:25px;
+	width: 180px;
+}
+
+.cool-form .invalid,
+.cool-form input:required:invalid,
+.cool-form select:required:invalid,
+.cool-form textarea:required:invalid {
+	background: #fff url(../images/invalid.png) no-repeat 98% center;
+	box-shadow: 0 0 5px #d45252;
+	border-color: #b03535;
+	padding-right:25px;
+	width: 180px;
+}
+
+.cool-form select:required:valid {
+	box-shadow: 0 0 5px #5cd053;
+	border-color: #28921f;
+}
+
+.invalid,
+.cool-form select:required:invalid {
+	box-shadow: 0 0 5px #d45252;
+	border-color: #b03535;
+}
+
+.cool-form input[type=text]:focus,
+.cool-form input[type=email]:focus,
+.cool-form input[type=number]:focus,
+.cool-form input[type=password]:focus,
+.cool-form textarea:focus {
+	width: -moz-calc(200px + 50px);
+	width: -webkit-calc(200px + 50px);
+	width: -o-calc(200px + 50px);
+	width: calc(200px + 50px);
+}
+
+.cool-form input[type=text]:required:focus,
+.cool-form input[type=email]:required:focus,
+.cool-form input[type=number]:required:focus,
+.cool-form input[type=password]:required:focus,
+.cool-form textarea:required:focus {
+	width: -moz-calc(180px + 50px);
+	width: -webkit-calc(180px + 50px);
+	width: -o-calc(180px + 50px);
+	width: calc(180px + 50px);
+}
+
+.cool-form input[type=text]:focus,
+.cool-form input[type=email]:focus,
+.cool-form input[type=number]:focus,
+.cool-form input[type=password]:focus,
+.cool-form textarea:focus {
+	-moz-transition: width .25s;
+	-webkit-transition: width .25s;
+	-o-transition: width .25s;
+	transition: width .25s;
+}
+
+/* FORM VALIDATION CSS */

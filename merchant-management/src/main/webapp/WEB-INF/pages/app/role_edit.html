@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title th:text="#{title}">Merchant Management</title>
+
+<!-- BE REMOVED -->
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.structure.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.theme.min.css" />
+
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-ui/1.11.0/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../css/main.css" th:remove="tag" />
+<script type="text/javascript" src="../../../js/main.js" th:remove="tag"></script>
+<!-- BE REMOVED -->
+
+<!-- <link rel="stylesheet" type="text/css" href="../../../js/datatables/css/jquery.dataTables.css"
+	th:href="@{/js/datatables/css/jquery.dataTables.css}"></link> -->
+
+<link rel="stylesheet" type="text/css" href="../../../js/datatables/css/dataTables.jqueryui.css"
+	th:href="@{/js/datatables/css/dataTables.jqueryui.css}"></link>
+<script type="text/javascript" src="../../../js/datatables/jquery.dataTables.js"
+	th:src="@{/js/datatables/jquery.dataTables.js}"></script>
+<script type="text/javascript" src="../../../js/datatables/dataTables.jqueryui.js"
+	th:src="@{/js/datatables/dataTables.jqueryui.js}"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../css/cool-form.css"
+	th:href="@{/css/cool-form.css}" />
+
+<script type="text/javascript" src="../../../js/merchant/role_create.js"
+	th:src="@{/js/merchant/role_create.js}"></script>
+
+</head>
+<body>
+	<div id="content" layout:fragment="content">
+		<form th:object="${role}" id="editForm" class="cool-form" action="role_edit.html"
+			th:action="@{'?id='+${role.name}}" method="post">
+			<ul>
+				<li>
+					<h3 th:text="#{role.edit}">Edit Role</h3>
+					<span class="required_notification" th:text="#{required.info}">* Denotes Required Field</span>
+				</li>
+				<li>
+					<label for="name" th:text="#{role.name}" class="required">Role Name</label>
+					<input name="name" type="text" th:value="*{name}" required="required" disabled="disabled"/>
+				</li>
+				<li>
+					<label for="description" th:text="#{description}">Description</label>
+					<textarea name="description" th:text="*{description}" autofocus="autofocus"></textarea>
+				</li>
+				<li>
+					<label th:text="#{permission}">Permission</label>
+					<div id="permissionsCheckboxContainer">
+						<div th:replace="app/permission :: permissionsCheckbox (permissionList=${allPermissions},checkedList=${session.permissionList})"></div>
+					</div>
+				</li>
+				<li>
+					<input type="submit" class="button" value="Save" th:value="#{save}" />
+					<input type="button" class="button" onclick="doCancel();" value="Cancel" th:value="#{cancel}" />
+				</li>
+			</ul>
+		</form>
+	</div>
+</body>
+</html>

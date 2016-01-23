@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title th:text="#{title}">Merchant Management</title>
+
+<!-- BE REMOVED -->
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.structure.min.css" />
+<link rel="stylesheet" type="text/css" th:remove="tag"
+	href="../../../js/jquery-ui/1.11.0/themes/seagreen/jquery-ui.theme.min.css" />
+
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" th:remove="tag" src="../../../js/jquery-ui/1.11.0/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../css/main.css" th:remove="tag" />
+<script type="text/javascript" src="../../../js/main.js" th:remove="tag"></script>
+<!-- BE REMOVED -->
+
+<!-- <link rel="stylesheet" type="text/css" href="../../../js/datatables/css/jquery.dataTables.css"
+	th:href="@{/js/datatables/css/jquery.dataTables.css}"></link> -->
+
+<link rel="stylesheet" type="text/css" href="../../../js/datatables/css/dataTables.jqueryui.css"
+	th:href="@{/js/datatables/css/dataTables.jqueryui.css}"></link>
+<script type="text/javascript" src="../../../js/datatables/jquery.dataTables.js"
+	th:src="@{/js/datatables/jquery.dataTables.js}"></script>
+<script type="text/javascript" src="../../../js/datatables/dataTables.jqueryui.js"
+	th:src="@{/js/datatables/dataTables.jqueryui.js}"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../css/cool-form.css"
+	th:href="@{/css/cool-form.css}" />
+
+<script type="text/javascript">
+	$('#content').ready(function() {
+		$('.ui-button').hover(function() {
+			$(this).addClass('ui-state-hover');
+		}, function() {
+			$(this).removeClass('ui-state-hover');
+		});
+		$('.ui-button').focusin(function() {
+			$(this).addClass('ui-state-focus');
+		});
+		$('.ui-button').focusout(function() {
+			$(this).removeClass('ui-state-focus');
+		});
+	});
+</script>
+
+</head>
+<body>
+	<div id="content" layout:fragment="content">
+		<form th:object="${user}" name="createForm" class="cool-form" action="user_create.html"
+			th:action="@{create}" method="post">
+			<ul>
+				<li>
+					<h3 th:text="#{user.create}">Create User</h3>
+					<span class="required_notification" th:text="#{required.info}">* Denotes Required Field</span>
+				</li>
+				<li>
+					<label for="userName" th:text="#{user.userName}" class="required">User Name</label>
+					<input name="userName" type="text" th:value="*{userName}" required="required"
+						autofocus="autofocus" />
+					<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="error"></span>
+				</li>
+				<li>
+					<label for="firstName" th:text="#{user.firstName}">First Name</label>
+					<input name="firstName" type="text" th:value="*{firstName}" />
+				</li>
+				<li>
+					<label for="lastName" th:text="#{user.lastName}">Last Name</label>
+					<input name="lastName" type="text" th:value="*{lastName}" />
+				</li>
+				<li>
+					<label for="phone" th:text="#{phone}">Phone</label>
+					<input name="phone" type="text" th:value="*{phone}" />
+					<span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error"></span>
+				</li>
+				<li>
+					<label for="email" th:text="#{email}" class="required">Email</label>
+					<input name="email" type="email" th:value="*{email}" required="required" />
+					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+				</li>
+				<li>
+					<label th:text="#{role}">Role</label>
+					<div th:each="role : ${allRoles}" th:remove="tag">
+						<input type="checkbox" th:name="'role_'+${role.id}" />
+						<span th:title="${role.description}" th:text="${role.name}">User</span>&nbsp;&nbsp;
+					</div>
+				</li>
+				<li>
+					<input type="submit" class="button" value="Save" th:value="#{save}" />
+					<!-- <input type="button" class="button" onclick="doClear();" text="Clear" th:value="#{clear}" /> -->
+					<input type="button" class="button" onclick="doCancel();" value="Cancel" th:value="#{cancel}" />
+				</li>
+			</ul>
+		</form>
+	</div>
+</body>
+</html>

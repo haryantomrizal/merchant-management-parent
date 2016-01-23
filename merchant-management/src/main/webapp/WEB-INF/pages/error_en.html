@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+<head>
+<title th:text="title">Merchant Management</title>
+</head>
+<body th:inline="text">
+	<div id="content" layout:fragment="content">
+		<h2 class="ui-widget-header" th:value="#{errorPage.title}">Error Page</h2>
+		<p th:if="${timestamp}" id='created'>
+			<b>Occurred:</b> <span th:text="${timestamp}">Timestamp</span>
+		</p>
+		<p th:if="${status}">
+			<b>Response Status:</b> <span th:text="${status}">status-code</span> <span th:if="${error}"
+				th:text="'('+${error}+')'">error ...</span>
+		</p>
+
+		<p>Application has encountered an error. Please contact support on [[#{support.contact}]]</p>
+		<p>Support may ask you to Right-click &gt; View Page Source to see error details.</p>
+
+		<!--
+			// Hidden Exception Details - this is not a recommendation, but here is
+			// how you hide an exception in the page using Thymeleaf
+		-->
+		<div th:utext="'&lt;!--'" th:remove="tag"></div>
+		<div th:utext="'Failed URL: ' +  ${url}" th:remove="tag">${url}</div>
+		<div th:utext="'Exception: ' + ${exception}" th:remove="tag">${exception}</div>
+		<div th:utext="'Exception Message: ' + ${exception.message}" th:remove="tag">${exception.message}</div>
+		<ul th:remove="tag">
+			<li th:each="ste : ${exception.stackTrace}" th:remove="tag">
+			<span th:utext="${ste}" th:remove="tag">${ste}</span>
+			</li>
+		</ul>
+		<div th:utext="'--&gt;'" th:remove="tag"></div>
+		<!--
+		    Failed URL: ${url}
+		    Exception:  ${exception.message}
+		    <ul th:remove="tag">
+				<li th:each="ste : ${exception.stackTrace}" th:remove="tag">
+				<span th:utext="${ste}" th:remove="tag">${ste}</span></li>
+			</ul>
+	    -->
+	</div>
+</body>
+</html>

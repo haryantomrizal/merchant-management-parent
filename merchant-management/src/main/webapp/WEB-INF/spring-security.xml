@@ -1,0 +1,93 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<!-- <sec:authentication-manager> <sec:authentication-provider user-service-ref="BMIUserDetailsService"> 
+		<sec:password-encoder hash="bcrypt" /> </sec:authentication-provider> </sec:authentication-manager> -->
+
+	<bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+		<constructor-arg>
+			<list>
+				<bean class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+					<property name="userDetailsService" ref="BMIUserDetailsService" />
+					<property name="passwordEncoder">
+						<bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+					</property>
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="sessionRegistryImpl" class="org.springframework.security.core.session.SessionRegistryImpl" />
+
+	<bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<property name="loginFormUrl" value="/" />
+	</bean>
+
+	<bean id="myFilter" class="com.bmi.web.security.auth.UserAuthenticationFilter">
+		<constructor-arg ref="authenticationManager" />
+		<property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
+	</bean>
+
+	<bean id="sessionAuthenticationStrategy"
+		class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		<constructor-arg name="sessionRegistry" ref="sessionRegistryImpl" />
+		<property name="exceptionIfMaximumExceeded" value="true" />
+		<property name="maximumSessions" value="1" />
+	</bean>
+
+	<bean id="formLoginFilter"
+		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<property name="sessionAuthenticationStrategy" ref="sessionAuthenticationStrategy" />
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="allowSessionCreation" value="true" />
+		<property name="usernameParameter" value="username" />
+		<property name="passwordParameter" value="password" />
+		<!-- <property name="authenticationSuccessHandler"> <bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler"> 
+			<constructor-arg value="/home" /> <property name="alwaysUseDefaultTargetUrl" value="true" /> </bean> 
+			</property> -->
+		<property name="authenticationSuccessHandler">
+			<bean class="com.bmi.web.security.auth.CSavedRequestAwareAuthenticationSuccessHandler">
+				<property name="defaultTargetUrl" value="/home" />
+				<property name="alwaysUseDefaultTargetUrl" value="true" />
+			</bean>
+		</property>
+		<!-- <property name="authenticationSuccessHandler"> <bean class="com.bmi.security.web.auth.CSavedRequestAwareAuthenticationSuccessHandler"> 
+			<property name="alwaysUseDefaultTargetUrl" value="true" /> </bean> </property> -->
+		<property name="authenticationFailureHandler">
+			<bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+				<constructor-arg value="/login?error" />
+			</bean>
+		</property>
+	</bean>
+
+	<sec:http auto-config="false" use-expressions="true" entry-point-ref="authenticationEntryPoint"
+		authentication-manager-ref="authenticationManager">
+
+		<sec:intercept-url pattern="/" access="permitAll" />
+		<sec:intercept-url pattern="/login" access="permitAll" />
+		<sec:intercept-url pattern="/logout" access="permitAll" />
+		<sec:intercept-url pattern="/images/**" access="permitAll" />
+		<sec:intercept-url pattern="/css/**" access="permitAll" />
+		<sec:intercept-url pattern="/js/**" access="permitAll" />
+		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
+		<sec:access-denied-handler error-page="/403" />
+
+		<!-- <form-login login-page="/" default-target-url="/home" always-use-default-target="true" authentication-failure-url="/login?error" 
+			username-parameter="username" password-parameter="password" /> -->
+
+		<sec:logout invalidate-session="true" logout-success-url="/logout" delete-cookies="JSESSIONID" />
+
+		<sec:session-management invalid-session-url="/"
+			session-authentication-error-url="/login?error=ses auth error">
+			<sec:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+		</sec:session-management>
+
+		<sec:custom-filter position="BASIC_AUTH_FILTER" ref="myFilter" />
+		<sec:custom-filter position="FORM_LOGIN_FILTER" ref="formLoginFilter" />
+		<sec:csrf />
+	</sec:http>
+</beans>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.bmi.web.controller" />
+	<context:component-scan base-package="com.bmi.mm.web.controller" />
+
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
+
+	<mvc:annotation-driven conversion-service="conversionService" />
+
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	<!-- <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"> -->
+		<property name="converters">
+			<set>
+				<bean class="com.bmi.app.converter.UserConverter" />
+				<bean class="com.bmi.app.converter.RoleConverter" />
+				<bean class="com.bmi.app.converter.PermissionConverter" />
+				<bean class="com.bmi.mm.converter.MerchantConverter" />
+				<bean class="com.bmi.mm.converter.ProductConverter" />
+			</set>
+		</property>
+		<property name="formatters">
+			<set>
+				<bean class="com.bmi.core.formatter.DateFormatter" />
+			</set>
+		</property>
+		<!-- <property name="formatterRegistrars"> <set> <bean class="org.example.MyFormatterRegistrar" /> 
+			</set> </property> -->
+	</bean>
+
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" /> 
+		<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" /> -->
+
+	<!-- <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"> 
+		<property name="paramName" value="language" /> </bean> -->
+	<!-- <bean id="officeHoursInterceptor" class="com.bmi.mm.web.intercept.TimeBasedAccessInterceptor"> 
+		<property name="openingTime" value="9" /> <property name="closingTime" value="23" /> </bean> -->
+
+	<bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML5" />
+	</bean>
+
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+		<property name="additionalDialects">
+			<set>
+				<bean class="nz.net.ultraq.thymeleaf.LayoutDialect" />
+			</set>
+		</property>
+	</bean>
+
+	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+		<property name="order" value="1" />
+	</bean>
+
+	<bean name="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="cookieName" value="lang" />
+		<property name="cookieMaxAge" value="604800" />
+		<property name="defaultLocale" value="in_ID" />
+	</bean>
+
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang" />
+		</bean>
+	</mvc:interceptors>
+
+	<!-- <bean id="userAccessFilter" class="id.co.quadras.siak.konsolidasi.daerah.web.filter.UserAccessFilter" 
+		/> <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
+		<property name="basename" value="messages" /> </bean> -->
+</beans>

@@ -1,0 +1,83 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<context:component-scan base-package="com.bmi" />
+	<context:annotation-config />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:HARYDB" />
+		<property name="username" value="mdwdev" />
+		<property name="password" value="mdwdev" />
+	</bean>
+
+	<!-- Hibernate session factory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"> -->
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>hibernate/hbm/app/Users.hbm.xml</value>
+				<value>hibernate/hbm/app/Roles.hbm.xml</value>
+				<value>hibernate/hbm/app/Permissions.hbm.xml</value>
+				<value>hibernate/hbm/Product.hbm.xml</value>
+				<value>hibernate/hbm/MerchantProduct.hbm.xml</value>
+				<value>hibernate/hbm/Merchant.hbm.xml</value>
+				<value>hibernate/hbm/Terminal.hbm.xml</value>
+				<value>hibernate/hbm/Transaction.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
+				<prop key="hibernate.hbm2ddl.import_file">classpath:sql/oracle/import.sql</prop>
+
+				<!-- <prop key="hibernate.current_session_context_class">thread</prop> -->
+				<!-- <prop key="hibernate.tansaction.flushBeforeCompletion">true</prop> -->
+
+				<!-- <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop> 
+					<prop key="hibernate.tansaction.auto_close_session">false</prop> <prop key="hibernate.connection.autocommit">true</prop> -->
+
+				<!-- <prop key="hibernate.connection.release_mode">auto</prop> -->
+				<!-- <prop key="hibernate.connection.release_mode">after_transaction</prop> -->
+
+				<!-- <prop key="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</prop> -->
+				<prop key="hibernate.c3p0.min_size">5</prop>
+				<prop key="hibernate.c3p0.max_size">20</prop>
+				<prop key="hibernate.c3p0.timeout">1800</prop>
+				<prop key="hibernate.c3p0.max_statement">50</prop>
+				<prop key="hibernate.c3p0.idle_test_period">3000</prop>
+			</props>
+		</property>
+	</bean>
+
+	<tx:annotation-driven />
+
+	<!-- MUST have transaction manager, using aop and aspects -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<!-- <property name="dataSource" ref="dataSource" /> -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="dataSource" /> </bean> -->
+
+	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager"> <tx:attributes> <tx:method name="get*" 
+		read-only="true" /> <tx:method name="find*" read-only="true" /> <tx:method name="select*" read-only="true" 
+		/> <tx:method name="create*" /> <tx:method name="insert*" /> <tx:method name="save*" /> <tx:method name="save*" 
+		/> <tx:method name="update*" /> <tx:method name="delete*" /> <tx:method name="*" /> </tx:attributes> 
+		</tx:advice> <aop:config> <aop:pointcut id="appPersistenceServicePointCut" expression="execution(* com.bmi.app.service.*Service.*(..))" 
+		/> <aop:advisor advice-ref="txAdvice" pointcut-ref="appPersistenceServicePointCut" /> </aop:config> -->
+</beans>
